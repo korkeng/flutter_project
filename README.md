@@ -2,7 +2,7 @@
 > A project that no finish and no goal but doing for developing the programing skills.
 
 [Owner](https://github.com/korkeng)|[Discord](https://github.com/korkeng)
---------|--------|--------|--------|--------|--------
+--------|--------
 
 ### Table of Contents
 1. [Prerequisites](#1-prerequisites)
