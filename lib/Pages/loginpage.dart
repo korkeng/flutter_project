@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loginpage/Pages/homepage.dart';
 import 'package:loginpage/models/LoginData.dart';
-import 'Widgets/SocialIcons.dart';
-import 'CustomIcons.dart';
-import 'mysql.dart';
+import '../Widgets/SocialIcons.dart';
+import '../CustomIcons.dart';
+import '../mysql.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _LoginState extends State<Login> {
     });
   }
 
-  login() async { 
+  login() async {
     bool isAccountCorrect = false;
     await MYSQL.getAllUserData().then((response) {
       setState(() {
@@ -34,13 +35,24 @@ class _LoginState extends State<Login> {
         for (int i = 0; i < loginData.length; i++){
           if(loginData[i].username == usernameController.text){
             isAccountCorrect = true;
-            print (loginData[i].password == passwordController.text ? 'Login Successfull.' : 'Incorrect Username or Password.');
+            loginData[i].password == passwordController.text ? onLoginSuccess(usernameController.text) : print ('Incorrect Username or Password.');
           }
         }
         if(usernameController.text == '' || passwordController.text == '') print ('Username and Password fill cannot be blank.');
         else if(!isAccountCorrect) print ('Incorrect Username or Password.');
       });
     });
+  }
+
+  void onLoginSuccess(String username){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(
+            username: username,
+          )
+        )
+    );
   }
 
   Widget radioButton(bool isSelected) => Container(
